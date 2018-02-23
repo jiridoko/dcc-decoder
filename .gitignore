@@ -1,0 +1,5 @@
+*.so
+*.o
+*.pyc
+__pycache__/*
+c_ext/test

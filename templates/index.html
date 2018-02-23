@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<script src="/static/custom.js"></script>
+		<script src="/static/jquery.min.js"></script>
+		<script src="/static/jquery.knob.js"></script>
+	</head>
+	<body scroll="no" style="overflow: hidden">
+		<h1>test</h1>
+		<input type="text" class="dial" value="0" id="myRange"><br /><br />
+		<button id="myButton" onclick="(function() { post('/query?arg1=1234'); })();">PUSH ME</button>
+		<script>
+			this.lastSentDialValue = 0
+			this.currentDialValue = 0
+
+			function sendDialValue() {
+				if (this.currentDialValue != this.lastSentDialValue) {
+					jQuery.post('/slider?value='+this.currentDialValue);
+					this.lastSentDialValue = this.currentDialValue;
+				}
+			}
+
+			function setDialValue(value) {
+				this.currentDialValue = value;
+			}
+			
+			window.setInterval(sendDialValue, 100);
+			
+			$(".dial").knob({
+				'min':0,
+				'max':100,
+				'fgColor':"#66CC66",
+				'angleOffset':-125,
+				'angleArc':250,
+				'rotation':"clockwise",
+				//'change': function(v) { post('/slider?value='+Math.round(v)); }
+				//'change': function(v) { jQuery.post('/slider?value='+Math.round(v)); }
+				'change': function(v) { setDialValue(Math.round(v)); }
+			});
+			//document.getElementById("myRange").oninput = function() { post("/slider?value="+this.value); };
+			//document.getElementById("myButton").onclick = function() { post("/query?arg1=1234"); };
+		</script>
+	</body>
+</html>
