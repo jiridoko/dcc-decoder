@@ -65,7 +65,7 @@ int init(int h) {
 
 	set_all_channels_to_dcc(handle);
 	dcc_config(handle, 16, 8, 0);
-	printf("command.c-init(): returning handle %d\n", handle);
+	
 	return handle;
 }
 
@@ -89,12 +89,8 @@ static PyObject* dcc_send(PyObject* self, PyObject* args) {
 	if (!PyArg_ParseTuple(args, "bbbbbbb", &handle, &count, &b1, &b2, &b3, &b4, &b5))
 		return NULL;
 
-	printf("1234-handle: %d\n", handle);
-
 	int ret = -1;
 	ret = send_command(handle, count, b1, b2, b3, b4, b5);
-
-	printf("1235-after-send_command-return: %d\n", ret);
 
 	//Py_RETURN_NONE;
 	return Py_BuildValue("i", ret);

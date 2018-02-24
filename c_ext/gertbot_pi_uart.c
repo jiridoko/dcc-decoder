@@ -42,14 +42,14 @@ void close_uart(int handle)
 
 int write_uart(int handle, unsigned char *data,int bytes)
 { 
-  //#ifdef TEST
   int length = bytes;
+  #ifdef TEST
   printf("handle: %d\n", handle);
   printf("bytes: %d\ndata: ", length);
   for (int i=0; i<length; ++i)
     printf("%d ", (int) data[i]);
   printf("\n---\n");
-  //#endif
+  #endif
   int txed;
   int offset=0;
   while (length)
