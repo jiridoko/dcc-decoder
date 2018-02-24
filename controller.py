@@ -6,11 +6,23 @@ import time
 class controller(object):
     def __init__(self):
         self.handle = dcc.dcc_init(-1)
-        self.locos = []
+        self.locos = dict()
     def add_loco(self, loco):
-        self.locos.append(loco)
+        ident = loco.get_id()
+        self.locos[ident] = loco
     def get_locos(self):
         return self.locos
+    def get_loco(self, ident):
+        if ident in self.locos.keys():
+            return self.locos[ident]
+        else:
+            return None
+    def get_loco_list(self):
+        ret = []
+        for i in self.locos.keys():
+            loco = self.locos[i]
+            ret.append((loco.get_nice_name(), loco.get_id()))
+        return ret
     def _format_data(self, data_array):
         arr = data_array
         length = len(arr)
@@ -28,6 +40,7 @@ class controller(object):
             raise Exception("Invalid data to be sent")
 
 if __name__ == "__main__":
+    from loco_loader import load_yaml_locos
     c = controller()
-    c.send([47, 130])
-    c.send([47, 128])
+    load_yaml_locos(c, "locos.yaml")
+    print(str(c.get_loco_list()))

@@ -3,16 +3,22 @@ import controller
 from dcc_signals import *
 
 class loco_function(object):
-    def __init__(self, name, toggle=False, value=None, ident=None):
+    def __init__(self, name, toggle=False, value=None, ident=None, label=None, fontawesome=False):
         self.toggle = toggle
         self.name = name
         self.value = value
         self.ident = ident
+        self.label = label
+        self.fontawesome = fontawesome
+    def is_fontawesome(self):
+        return self.fontawesome
+    def get_label(self):
+        return self.label
     def get_value(self):
         return self.value
     def set_value(self, value):
         self.value = value
-    def get_ident(self):
+    def get_id(self):
         return self.ident
     def is_toggle(self):
         return self.toggle
@@ -22,20 +28,45 @@ class locomotive(object):
         self.name = name
         self.ident = ident
         self.control = control
-        self.functions = dict()
+        self.functions = []
         self.speed = 0
         self.forward = True
         self.emergency_stop = False
-    def add_function(self, name, toggle, value, ident):
-        new_func = loco_function(name, toggle=toggle, value=value, ident=ident)
-        self.functions[ident] = new_func
+        self.nice_name = ""
+        self.serial = ""
+        self.img = ""
+    def set_nice_name(self, name):
+        self.nice_name = name
+    def set_serial(self, serial):
+        self.serial = serial
+    def set_img(self, img):
+        self.img = img
+    def get_nice_name(self):
+        return self.nice_name
+    def get_serial(self):
+        return self.serial
+    def get_img(self):
+        return self.img
+    def add_function(self, name, toggle, value, ident, label, fontawesome):
+        new_func = loco_function(name, toggle=toggle, value=value, ident=ident, label=label, fontawesome=fontawesome)
+        self.functions.append(new_func)
     def get_function(self, ident):
-        return self.functions[ident]
+        for i in self.functions:
+            if i.get_id() == ident:
+                return i
+        return None
+    def get_function_list(self):
+        ret = []
+        for f in self.functions:
+            ret.append((f.get_id(), f.get_label(), f.is_fontawesome()))
+        return ret
+    def get_id(self):
+        return self.ident
     def get_function_value(self, ident):
-        if ident in self.functions.keys():
-            return self.functions[ident].get_value()
-        else:
+        f = self.get_function(ident)
+        if f is None:
             return False
+        return f.get_value()
     def emergency(self, stop=True):
         self.speed = 0
         self.emergency_stop = stop
@@ -57,9 +88,9 @@ class locomotive(object):
     def is_forward(self):
         return self.forward
     def toggle_function(self, ident):
-        if not ident in self.functions.keys():
+        f = self.get_function(ident)
+        if f is None:
             return None
-        f = self.functions[ident]
         if f.is_toggle():
             new_value = not f.get_value()
             f.set_value(new_value)
@@ -67,9 +98,9 @@ class locomotive(object):
         else:
             self.call_function(ident)
     def call_function(self, ident, value=False):
-        if not ident in self.functions.keys():
+        f = self.get_function(ident)
+        if f is None:
             return None
-        f = self.functions[ident]
         f.set_value(value)
         if ident >= 0 and ident <= 4:
             v = []

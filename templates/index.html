@@ -90,10 +90,13 @@
 
     <div id="menu">
         <div class="pure-menu">
-            <a class="pure-menu-heading" href="#">Company</a>
+            <a class="pure-menu-heading" href="#">Railway</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+		{% for name, id in loco_list %}
+		<li class="pure-menu-item"><a href="/?loco={{ id }}" class="pure-menu-link">{{ name }}</a></li>
+		{% endfor %}
+		<!--
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
 
                 <li class="pure-menu-item menu-item-divided pure-menu-selected">
@@ -101,6 +104,7 @@
                 </li>
 
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+		-->
             </ul>
         </div>
     </div>
@@ -108,23 +112,23 @@
     <div id="main">
         <div class="content">
 	    <div class="pure-g">
-		    <div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0', function(data) {console.log('got data:'+data); document.getElementById('').innerHTML = data;}); })();"><i class="far fa-hand-paper"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=1'); })();"><i class="far fa-lightbulb"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=2'); })();"><i class="fas fa-music"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=4'); })();"><i class="far fa-bell"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=5'); })();">5</button></p></div>
-		<div class="pure-u-1-5"><p>6</p></div>
-		<div class="pure-u-1-5"><p>7</p></div>
-		<div class="pure-u-1-5"><p>8</p></div>
-		<div class="pure-u-1-5"><p>9</p></div>
-		<div class="pure-u-1-5"><p>10</p></div>
-		<div class="pure-u-1-5"><p>11</p></div>
-		<div class="pure-u-1-5"><p>12</p></div>
-		<div class="pure-u-1-5"><p>13</p></div>
-		<div class="pure-u-1-5"><p>14</p></div>
-		<div class="pure-u-1-5"><p>15</p></div>
+		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0', function(data) {console.log('got data:'+data); document.getElementById('').innerHTML = data;}); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		{% for action, label, fontawesome in function_list %}
+		    {% if fontawesome %}
+		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}'); })();"><i class="{{ label }}"></i></button></p></div>
+		    {% else %}
+		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}'); })();">{{ label }}</button></p></div>
+	            {% endif %}
+		{% endfor %}
+		<!--
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=2'); })();"><i class="fas fa-music"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=4'); })();"><i class="far fa-bell"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=5'); })();">5</button></p></div>
+		-->
+		{% if loco_id != 0 %}
 		<div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
+		{% endif %}
             </div>
         </div>
     </div>

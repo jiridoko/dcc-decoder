@@ -1,60 +1,105 @@
 ---
 locomotives:
+        - test1:
+                id: 48
+                img: "test1.jpg"
+                name: "Test Locomotive"
+                serial: "1234"
+                functions: []
         - brejlovec:
                 id: 47
                 img: "brejlovec.png"
                 name: "Brejlovec"
                 serial: "754 023-0"
                 functions:
-                        - light:
+                        - 
+                                name: "light"
+                                label: 'far fa-lightbulb'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 0
-                        - sound:
+                        - 
+                                name: "sound"
+                                label: 'fas fa-music'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 1
-                        - horn:
+                        - 
+                                name: "horn"
+                                label: 'fas fa-bullhorn'
+                                fa: True
                                 toggle: False
                                 default: False
                                 id: 2
-                        - whistle:
+                        - 
+                                name: "whistle"
+                                label: 'far fa-bell'
+                                fa: True
                                 toggle: False
                                 default: False
                                 id: 3
-                        - coupling:
+                        - 
+                                name: "coupling"
+                                label: 'f4'
+                                fa: False
                                 toggle: False
                                 default: False
                                 id: 4
-                        - conductor:
+                        - 
+                                name: "conductor"
+                                label: 'f5'
+                                fa: False
                                 toggle: False
                                 default: False
                                 id: 5
-                        - shunting:
+                        - 
+                                name: "shunting"
+                                label: 'f6'
+                                fa: False
                                 toggle: True
                                 default: False
                                 id: 6
-                        - curve:
+                        - 
+                                name: "curve"
+                                label: 'f7'
+                                fa: False
                                 toggle: True
                                 default: False
                                 id: 7
-                        - sanding:
+                        - 
+                                name: "sanding"
+                                label: 'f8'
+                                fa: False
                                 toggle: True
                                 default: False
                                 id: 8
-                        - announcement:
+                        - 
+                                name: "announcement"
+                                label: 'f10'
+                                fa: False
                                 toggle: False
                                 default: False
                                 id: 10
-                        - short_horn:
+                        - 
+                                name: "short_horn"
+                                label: 'f12'
+                                fa: False
                                 toggle: False
                                 default: False
                                 id: 12
-                        - short_whistle:
+                        - 
+                                name: "short_whistle"
+                                label: 'f13'
+                                fa: False
                                 toggle: False
                                 default: False
                                 id: 13
-                        - mute:
+                        - 
+                                name: "mute"
+                                label: 'f14'
+                                fa: False
                                 toggle: True
                                 default: False
                                 id: 14
