@@ -42,7 +42,7 @@ def query():
     a=int(request.args['a'])
     print("a: "+str(a))
     loco1.toggle_function(a-1)
-    return ('', 204)
+    return 'test'
 
 @app.route('/slider', methods=["POST"])
 def slider():

@@ -1,0 +1,61 @@
+---
+locomotives:
+        - brejlovec:
+                id: 47
+                img: "brejlovec.png"
+                name: "Brejlovec"
+                serial: "754 023-0"
+                functions:
+                        - light:
+                                toggle: True
+                                default: False
+                                id: 0
+                        - sound:
+                                toggle: True
+                                default: False
+                                id: 1
+                        - horn:
+                                toggle: False
+                                default: False
+                                id: 2
+                        - whistle:
+                                toggle: False
+                                default: False
+                                id: 3
+                        - coupling:
+                                toggle: False
+                                default: False
+                                id: 4
+                        - conductor:
+                                toggle: False
+                                default: False
+                                id: 5
+                        - shunting:
+                                toggle: True
+                                default: False
+                                id: 6
+                        - curve:
+                                toggle: True
+                                default: False
+                                id: 7
+                        - sanding:
+                                toggle: True
+                                default: False
+                                id: 8
+                        - announcement:
+                                toggle: False
+                                default: False
+                                id: 10
+                        - short_horn:
+                                toggle: False
+                                default: False
+                                id: 12
+                        - short_whistle:
+                                toggle: False
+                                default: False
+                                id: 13
+                        - mute:
+                                toggle: True
+                                default: False
+                                id: 14
+

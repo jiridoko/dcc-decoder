@@ -61,6 +61,16 @@
 	width: 95%;
     }
 
+    .button-on {
+        background: rgb(6, 144, 190); /* this is a light blue */
+	width: 95%;
+    }
+
+    .button-off {
+        background: rgb(103, 200, 232); /* this is a light blue */
+	width: 95%;
+    }
+
     .dial {
 	margin: auto;
 	width: 100%
@@ -96,21 +106,14 @@
     </div>
 
     <div id="main">
-	<!--
-        <div class="header">
-            <h1>Page Title</h1>
-            <h2>A subtitle for your page goes here</h2>
-        </div>
-	-->
-
         <div class="content">
 	    <div class="pure-g">
-		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0'); })();"><i class="far fa-hand-paper"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=1'); })();"><i class="far fa-lightbulb"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=2'); })();"><i class="fas fa-music"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=4'); })();"><i class="far fa-bell"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=5'); })();">5</button></p></div>
+		    <div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0', function(data) {console.log('got data:'+data); document.getElementById('').innerHTML = data;}); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=1'); })();"><i class="far fa-lightbulb"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=2'); })();"><i class="fas fa-music"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=4'); })();"><i class="far fa-bell"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?a=5'); })();">5</button></p></div>
 		<div class="pure-u-1-5"><p>6</p></div>
 		<div class="pure-u-1-5"><p>7</p></div>
 		<div class="pure-u-1-5"><p>8</p></div>
@@ -123,37 +126,6 @@
 		<div class="pure-u-1-5"><p>15</p></div>
 		<div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
             </div>
-	    <!--
-            <h2 class="content-subhead">How to use this layout</h2>
-            <p>
-                To use this layout, you can just copy paste the HTML, along with the CSS in <a href="/static/pure-layout/side-menu.css" alt="Side Menu CSS">side-menu.css</a>, and the JavaScript in <a href="/static/pure-layout/ui.js">ui.js</a>. The JS file uses vanilla JavaScript to simply toggle an <code>active</code> class that makes the menu responsive.
-            </p>
-
-            <h2 class="content-subhead">Now Let's Speak Some Latin</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-
-            <div class="pure-g">
-                <div class="pure-u-1-4">
-                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2875/9069037713_1752f5daeb.jpg" alt="Peyto Lake">
-                </div>
-                <div class="pure-u-1-4">
-                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2813/9069585985_80da8db54f.jpg" alt="Train">
-                </div>
-                <div class="pure-u-1-4">
-                    <img class="pure-img-responsive" src="http://farm6.staticflickr.com/5456/9121446012_c1640e42d0.jpg" alt="T-Shirt Store">
-                </div>
-                <div class="pure-u-1-4">
-                    <img class="pure-img-responsive" src="http://farm8.staticflickr.com/7357/9086701425_fda3024927.jpg" alt="Mountain">
-                </div>
-            </div>
-
-            <h2 class="content-subhead">Try Resizing your Browser</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-	    -->
         </div>
     </div>
 </div>

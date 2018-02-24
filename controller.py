@@ -6,6 +6,11 @@ import time
 class controller(object):
     def __init__(self):
         self.handle = dcc.dcc_init(-1)
+        self.locos = []
+    def add_loco(self, loco):
+        self.locos.append(loco)
+    def get_locos(self):
+        return self.locos
     def _format_data(self, data_array):
         arr = data_array
         length = len(arr)
