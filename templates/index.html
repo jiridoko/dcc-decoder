@@ -1,43 +1,203 @@
-<html>
-	<head>
-		<script src="/static/custom.js"></script>
-		<script src="/static/jquery.min.js"></script>
-		<script src="/static/jquery.knob.js"></script>
-	</head>
-	<body scroll="no" style="overflow: hidden">
-		<h1>test</h1>
-		<input type="text" class="dial" value="0" id="myRange"><br /><br />
-		<button id="myButton" onclick="(function() { post('/query?arg1=1234'); })();">PUSH ME</button>
-		<script>
-			this.lastSentDialValue = 0
-			this.currentDialValue = 0
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
+   
+    <script defer src="/static/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
+    <link rel="stylesheet" href="/static/pure/pure-min.css" integrity="sha384-" crossorigin="anonymous">
+    
+    
+    
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="/static/pure-layout/side-menu-old-ie.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+            <link rel="stylesheet" href="/static/pure-layout/side-menu.css">
+        <!--<![endif]-->
+</head>
+<body>
 
-			function sendDialValue() {
-				if (this.currentDialValue != this.lastSentDialValue) {
-					jQuery.post('/slider?value='+this.currentDialValue);
-					this.lastSentDialValue = this.currentDialValue;
-				}
-			}
+<style scoped>
 
-			function setDialValue(value) {
-				this.currentDialValue = value;
-			}
-			
-			window.setInterval(sendDialValue, 100);
-			
-			$(".dial").knob({
-				'min':0,
-				'max':100,
-				'fgColor':"#66CC66",
-				'angleOffset':-125,
-				'angleArc':250,
-				'rotation':"clockwise",
-				//'change': function(v) { post('/slider?value='+Math.round(v)); }
-				//'change': function(v) { jQuery.post('/slider?value='+Math.round(v)); }
-				'change': function(v) { setDialValue(Math.round(v)); }
-			});
-			//document.getElementById("myRange").oninput = function() { post("/slider?value="+this.value); };
-			//document.getElementById("myButton").onclick = function() { post("/query?arg1=1234"); };
-		</script>
-	</body>
+    .button-success,
+    .button-error,
+    .button-warning,
+    .button-stop,
+    .button-fn,
+    .button-secondary {
+        color: white;
+        border-radius: 4px;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	display: block;
+	margin: auto;
+    }
+
+    .button-success {
+        background: rgb(28, 184, 65); /* this is a green */
+    }
+
+    .button-error {
+        background: rgb(202, 60, 60); /* this is a maroon */
+    }
+
+    .button-stop {
+        background: rgb(202, 60, 60); /* this is a maroon */
+	width: 70%;
+    }
+
+    .button-warning {
+        background: rgb(223, 117, 20); /* this is an orange */
+    }
+
+    .button-secondary {
+        background: rgb(66, 184, 221); /* this is a light blue */
+    }
+
+    .button-fn {
+        background: rgb(66, 184, 221); /* this is a light blue */
+	width: 95%;
+    }
+
+    .dial {
+	margin: auto;
+	width: 100%
+    }
+
+</style>
+
+
+
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#">Company</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
+
+                <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                    <a href="#" class="pure-menu-link">Services</a>
+                </li>
+
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+	<!--
+        <div class="header">
+            <h1>Page Title</h1>
+            <h2>A subtitle for your page goes here</h2>
+        </div>
+	-->
+
+        <div class="content">
+	    <div class="pure-g">
+		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0'); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=1'); })();"><i class="far fa-lightbulb"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=2'); })();"><i class="fas fa-music"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=4'); })();"><i class="far fa-bell"></i></button></p></div>
+		<div class="pure-u-1-5"><p><button class="pure-button button-fn" id="myButton" onclick="(function() { jQuery.post('/q?a=5'); })();">5</button></p></div>
+		<div class="pure-u-1-5"><p>6</p></div>
+		<div class="pure-u-1-5"><p>7</p></div>
+		<div class="pure-u-1-5"><p>8</p></div>
+		<div class="pure-u-1-5"><p>9</p></div>
+		<div class="pure-u-1-5"><p>10</p></div>
+		<div class="pure-u-1-5"><p>11</p></div>
+		<div class="pure-u-1-5"><p>12</p></div>
+		<div class="pure-u-1-5"><p>13</p></div>
+		<div class="pure-u-1-5"><p>14</p></div>
+		<div class="pure-u-1-5"><p>15</p></div>
+		<div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
+            </div>
+	    <!--
+            <h2 class="content-subhead">How to use this layout</h2>
+            <p>
+                To use this layout, you can just copy paste the HTML, along with the CSS in <a href="/static/pure-layout/side-menu.css" alt="Side Menu CSS">side-menu.css</a>, and the JavaScript in <a href="/static/pure-layout/ui.js">ui.js</a>. The JS file uses vanilla JavaScript to simply toggle an <code>active</code> class that makes the menu responsive.
+            </p>
+
+            <h2 class="content-subhead">Now Let's Speak Some Latin</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+            <div class="pure-g">
+                <div class="pure-u-1-4">
+                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2875/9069037713_1752f5daeb.jpg" alt="Peyto Lake">
+                </div>
+                <div class="pure-u-1-4">
+                    <img class="pure-img-responsive" src="http://farm3.staticflickr.com/2813/9069585985_80da8db54f.jpg" alt="Train">
+                </div>
+                <div class="pure-u-1-4">
+                    <img class="pure-img-responsive" src="http://farm6.staticflickr.com/5456/9121446012_c1640e42d0.jpg" alt="T-Shirt Store">
+                </div>
+                <div class="pure-u-1-4">
+                    <img class="pure-img-responsive" src="http://farm8.staticflickr.com/7357/9086701425_fda3024927.jpg" alt="Mountain">
+                </div>
+            </div>
+
+            <h2 class="content-subhead">Try Resizing your Browser</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+	    -->
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/static/pure-layout/ui.js"></script>
+<script src="/static/custom.js"></script>
+<script src="/static/jquery.min.js"></script>
+<script src="/static/jquery.knob.js"></script>
+<script>
+	this.lastSentDialValue = 0
+	this.currentDialValue = 0
+
+	function sendDialValue() {
+		if (this.currentDialValue != this.lastSentDialValue) {
+			jQuery.post('/slider?value='+this.currentDialValue);
+			this.lastSentDialValue = this.currentDialValue;
+		}
+	}
+
+	function setDialValue(value) {
+		this.currentDialValue = value;
+	}
+	
+	window.setInterval(sendDialValue, 100);
+	
+	$(".dial").knob({
+		'min':0,
+		'max':14,
+		'width':"90%",
+		'width':255,
+		'fgColor':"#66CC66",
+		'angleOffset':-125,
+		'angleArc':250,
+		'rotation':"clockwise",
+		//'change': function(v) { post('/slider?value='+Math.round(v)); }
+		//'change': function(v) { jQuery.post('/slider?value='+Math.round(v)); }
+		'change': function(v) { setDialValue(Math.round(v)); }
+	});
+	//document.getElementById("throttleDial").oninput = function() { post("/slider?value="+this.value); };
+	//document.getElementById("myButton").onclick = function() { post("/query?arg1=1234"); };
+</script>
+
+</body>
 </html>

@@ -56,13 +56,21 @@ class locomotive(object):
         return self.speed
     def is_forward(self):
         return self.forward
+    def toggle_function(self, ident):
+        if not ident in self.functions.keys():
+            return None
+        f = self.functions[ident]
+        if f.is_toggle():
+            new_value = not f.get_value()
+            f.set_value(new_value)
+            self.call_function(ident, new_value)
+        else:
+            self.call_function(ident)
     def call_function(self, ident, value=False):
         if not ident in self.functions.keys():
             return None
-
         f = self.functions[ident]
         f.set_value(value)
-
         if ident >= 0 and ident <= 4:
             v = []
             for i in range(0,5):
