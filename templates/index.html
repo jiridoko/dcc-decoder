@@ -27,6 +27,10 @@
     .button-warning,
     .button-stop,
     .button-fn,
+    .button-direction-on,
+    .button-direction-off,
+    .button-on,
+    .button-off,
     .button-secondary {
         color: white;
         border-radius: 4px;
@@ -71,6 +75,16 @@
 	width: 95%;
     }
 
+    .button-direction-on {
+        background: rgb(0, 121, 27); /* this is a dark green */
+	width: 70%;
+    }
+
+    .button-direction-off {
+        background: rgb(96, 212, 122); /* this is a light green */
+	width: 70%;
+    }
+
     .dial {
 	margin: auto;
 	width: 100%
@@ -112,7 +126,7 @@
     <div id="main">
         <div class="content">
 	    <div class="pure-g">
-		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?action=emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1"><p><button class="pure-button button-stop" id="emergency" onclick="(function() { jQuery.post('/q?action=emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
 		{% for action, label, fontawesome in function_list %}
 		    {% if fontawesome %}
 		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();"><i class="{{ label }}"></i></button></p></div>
@@ -120,14 +134,11 @@
 		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();">{{ label }}</button></p></div>
 	            {% endif %}
 		{% endfor %}
-		<!--
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=2'); })();"><i class="fas fa-music"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=3'); })();"><i class="fas fa-bullhorn"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=4'); })();"><i class="far fa-bell"></i></button></p></div>
-		<div class="pure-u-1-5"><p><button class="pure-button button-off" id="myButton" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action=5'); })();">5</button></p></div>
-		-->
 		{% if loco_id != 0 %}
 		<div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
+		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
+		<div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
 		{% endif %}
             </div>
         </div>
@@ -147,7 +158,7 @@
 
 	function sendDialValue() {
 		if (this.currentDialValue != this.lastSentDialValue) {
-			jQuery.post('/slider?value='+this.currentDialValue);
+			jQuery.post('/slider?loco={{ loco_id }}&value='+this.currentDialValue);
 			this.lastSentDialValue = this.currentDialValue;
 		}
 	}
@@ -167,6 +178,13 @@
 			else if (f_state == 'False')
 				document.getElementById("function-"+f_id).className = "pure-button button-off";
 			//console.log("element: "+f_id+"/"+f_state);
+		}
+		if (json.forward == 'True') {
+			document.getElementById("forward").className = "pure-button button-direction-on";
+			document.getElementById("backward").className = "pure-button button-direction-off";
+		} else if (json.forward == 'False') {
+			document.getElementById("forward").className = "pure-button button-direction-off";
+			document.getElementById("backward").className = "pure-button button-direction-on";
 		}
 	}
 

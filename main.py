@@ -49,6 +49,7 @@ def button_state(loco_id):
     a["functions"] = []
     for f in c.get_loco(loco_id).get_functions():
         a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
+    a["forward"] = str(bool(c.get_loco(loco_id).is_forward()))
     return json.dumps(a)
 
 @app.route('/q', methods=["POST"])
@@ -62,12 +63,19 @@ def query():
         c.get_loco(loco).toggle_function(action)
     return button_state(loco)
 
+@app.route('/direction', methods=["POST"])
+def direction():
+    value=int(request.args['value'])
+    loco=int(request.args['loco'])
+    c.get_loco(loco).set_direction(forward=(value==1))
+    return button_state(loco)
+
 @app.route('/slider', methods=["POST"])
 def slider():
     value=int(request.args['value'])
-    print("value: "+str(value))
-    c.get_loco(47).set_speed(speed=value)
-    return ('', 204)
+    loco=int(request.args['loco'])
+    c.get_loco(loco).set_speed(speed=value)
+    return button_state(loco)
 
 if __name__ == '__main__':
     app.run(debug=False, port=80, host="0.0.0.0")
