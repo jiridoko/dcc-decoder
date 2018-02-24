@@ -112,12 +112,12 @@
     <div id="main">
         <div class="content">
 	    <div class="pure-g">
-		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?a=0', function(data) {console.log('got data:'+data); document.getElementById('').innerHTML = data;}); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1"><p><button class="pure-button button-stop" id="myButton" onclick="(function() { jQuery.post('/q?action=emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
 		{% for action, label, fontawesome in function_list %}
 		    {% if fontawesome %}
-		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}'); })();"><i class="{{ label }}"></i></button></p></div>
+		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();"><i class="{{ label }}"></i></button></p></div>
 		    {% else %}
-		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}'); })();">{{ label }}</button></p></div>
+		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();">{{ label }}</button></p></div>
 	            {% endif %}
 		{% endfor %}
 		<!--
@@ -157,21 +157,30 @@
 	}
 
 	function updateButtons(jsondata) {
-		console.log('got this data: '+jsondata);
+		//console.log('got this data: '+jsondata);
 		var json = JSON.parse(jsondata);
 		for (var i = 0; i < json.functions.length; i++) {
 			var f_id = json.functions[i].f_id;
 			var f_state = json.functions[i].f_state;
-			console.log("element: "+f_id+"/"+f_state);
+			if (f_state == 'True')
+				document.getElementById("function-"+f_id).className = "pure-button button-on";
+			else if (f_state == 'False')
+				document.getElementById("function-"+f_id).className = "pure-button button-off";
+			//console.log("element: "+f_id+"/"+f_state);
 		}
 	}
 
-	window.onload = function() {
+	
+
+	function ajaxupdate() {
 		jQuery.post('/q?loco={{ loco_id }}', function(data) {
 			updateButtons(data);
 		});
 	}
+	window.onload = ajaxupdate;
+	
 	window.setInterval(sendDialValue, 100);
+	window.setInterval(ajaxupdate, 1000);
 	
 	$(".dial").knob({
 		'min':0,

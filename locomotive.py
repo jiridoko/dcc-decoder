@@ -50,6 +50,8 @@ class locomotive(object):
     def add_function(self, name, toggle, value, ident, label, fontawesome):
         new_func = loco_function(name, toggle=toggle, value=value, ident=ident, label=label, fontawesome=fontawesome)
         self.functions.append(new_func)
+    def get_functions(self):
+        return self.functions
     def get_function(self, ident):
         for i in self.functions:
             if i.get_id() == ident:

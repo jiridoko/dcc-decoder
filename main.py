@@ -6,6 +6,7 @@ from flask import render_template
 from flask import send_from_directory
 from flask import redirect
 from flask import abort
+import json
 from loco_loader import load_yaml_locos
 import controller
 from locomotive import locomotive
@@ -41,13 +42,25 @@ def static_files():
 def emergency():
     return ('', 204)
 
+def button_state(loco_id):
+    if loco_id == 0:
+        return '{"functions":[]}'
+    a = dict()
+    a["functions"] = []
+    for f in c.get_loco(loco_id).get_functions():
+        a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
+    return json.dumps(a)
+
 @app.route('/q', methods=["POST"])
 def query():
     loco=int(request.args['loco'])
     if 'action' in request.args.keys():
+        if request.args['action'] == 'emergency':
+            # TODO: emergency brake here
+            return button_state(loco)
         action=int(request.args['action'])
         c.get_loco(loco).toggle_function(action)
-    return '{ "functions":[{"f_id":"0", "f_state":"on"}, {"f_id":"1", "f_state":"off"}] }'
+    return button_state(loco)
 
 @app.route('/slider', methods=["POST"])
 def slider():
