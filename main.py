@@ -43,10 +43,11 @@ def emergency():
 
 @app.route('/q', methods=["POST"])
 def query():
-    action=int(request.args['action'])
     loco=int(request.args['loco'])
-    c.get_loco(loco).toggle_function(action)
-    return 'test'
+    if 'action' in request.args.keys():
+        action=int(request.args['action'])
+        c.get_loco(loco).toggle_function(action)
+    return '{ "functions":[{"f_id":"0", "f_state":"on"}, {"f_id":"1", "f_state":"off"}] }'
 
 @app.route('/slider', methods=["POST"])
 def slider():

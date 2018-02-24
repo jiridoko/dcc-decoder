@@ -155,7 +155,22 @@
 	function setDialValue(value) {
 		this.currentDialValue = value;
 	}
-	
+
+	function updateButtons(jsondata) {
+		console.log('got this data: '+jsondata);
+		var json = JSON.parse(jsondata);
+		for (var i = 0; i < json.functions.length; i++) {
+			var f_id = json.functions[i].f_id;
+			var f_state = json.functions[i].f_state;
+			console.log("element: "+f_id+"/"+f_state);
+		}
+	}
+
+	window.onload = function() {
+		jQuery.post('/q?loco={{ loco_id }}', function(data) {
+			updateButtons(data);
+		});
+	}
 	window.setInterval(sendDialValue, 100);
 	
 	$(".dial").knob({
