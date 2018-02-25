@@ -27,12 +27,40 @@ locomotives:
                                 default: False
                                 id: 1
                         - 
+                                name: "announcement"
+                                label: 'fas fa-rss'
+                                fa: True
+                                toggle: False
+                                default: False
+                                id: 10
+                        - 
+                                name: "conductor"
+                                label: 'fas fa-train'
+                                fa: True
+                                toggle: False
+                                default: False
+                                id: 5
+                        - 
+                                name: "coupling"
+                                label: 'fab fa-steam-symbol'
+                                fa: True
+                                toggle: False
+                                default: False
+                                id: 4
+                        - 
                                 name: "horn"
                                 label: 'fas fa-bullhorn'
                                 fa: True
                                 toggle: False
                                 default: False
                                 id: 2
+                        - 
+                                name: "short_horn"
+                                label: 'fas fa-bullhorn'
+                                fa: True
+                                toggle: False
+                                default: False
+                                id: 12
                         - 
                                 name: "whistle"
                                 label: 'far fa-bell'
@@ -41,19 +69,12 @@ locomotives:
                                 default: False
                                 id: 3
                         - 
-                                name: "coupling"
-                                label: 'f4'
-                                fa: False
+                                name: "short_whistle"
+                                label: 'far fa-bell'
+                                fa: True
                                 toggle: False
                                 default: False
-                                id: 4
-                        - 
-                                name: "conductor"
-                                label: 'f5'
-                                fa: False
-                                toggle: False
-                                default: False
-                                id: 5
+                                id: 13
                         - 
                                 name: "shunting"
                                 label: 'f6'
@@ -76,30 +97,9 @@ locomotives:
                                 default: False
                                 id: 8
                         - 
-                                name: "announcement"
-                                label: 'f10'
-                                fa: False
-                                toggle: False
-                                default: False
-                                id: 10
-                        - 
-                                name: "short_horn"
-                                label: 'f12'
-                                fa: False
-                                toggle: False
-                                default: False
-                                id: 12
-                        - 
-                                name: "short_whistle"
-                                label: 'f13'
-                                fa: False
-                                toggle: False
-                                default: False
-                                id: 13
-                        - 
                                 name: "mute"
-                                label: 'f14'
-                                fa: False
+                                label: 'fas fa-volume-off'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 14

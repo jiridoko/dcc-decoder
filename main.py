@@ -28,11 +28,24 @@ def index():
         pass
     #{% for action, label in function_list %}
     flist = []
+    loco_name = "No loco selected"
+    loco_serial = "Select one from the menu"
+    loco_img = "blank.png"
     try:
-        flist = c.get_loco(loco_id).get_function_list()
+        loco = c.get_loco(loco_id)
+        flist = loco.get_function_list()
+        loco_name = loco.get_nice_name()
+        loco_serial = loco.get_serial()
+        loco_img = loco.get_img()
     except:
         pass
-    return render_template('index.html', loco_list=c.get_loco_list(), loco_id=loco_id, function_list=flist)
+    return render_template('index.html',\
+            loco_list=c.get_loco_list(),\
+            loco_id=loco_id,\
+            function_list=flist,\
+            loco_name=loco_name,\
+            loco_serial=loco_serial,\
+            loco_img=loco_img)
 
 @app.route('/static/<path:path>')
 def static_files():
