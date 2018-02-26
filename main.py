@@ -31,12 +31,15 @@ def index():
     loco_name = "No loco selected"
     loco_serial = "Select one from the menu"
     loco_img = "blank.png"
+    max_speed = 14
     try:
         loco = c.get_loco(loco_id)
         flist = loco.get_function_list()
         loco_name = loco.get_nice_name()
         loco_serial = loco.get_serial()
         loco_img = loco.get_img()
+        if loco.is_advanced_speed():
+            max_speed = 126
     except:
         pass
     return render_template('index.html',\
@@ -45,7 +48,8 @@ def index():
             function_list=flist,\
             loco_name=loco_name,\
             loco_serial=loco_serial,\
-            loco_img=loco_img)
+            loco_img=loco_img,\
+            max_speed=max_speed)
 
 @app.route('/static/<path:path>')
 def static_files():

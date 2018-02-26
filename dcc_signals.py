@@ -13,6 +13,20 @@ def loco_speed(address=0, speed=0, emergency_stop=False, forward=True, lights=Fa
     else:
         return [address, ret]
 
+def loco_spped_advanced(address=0, speed=0, emergency_stop=False, forward=True):
+    ret = 0b00111111
+    ret2= (forward << 7)
+    if emergency_stop:
+        ret2 = 0b00000001
+        return [address, ret, ret2]
+    if speed == 0:
+        return [address, ret, ret2]
+    elif speed <= 126:
+        ret2 = ret2 + speed + 1
+        return [address, ret, ret2]
+    else:
+        return [address, ret, ret2]
+
 def loco_functions_1(address=0, lights=False, f1=False, f2=False, f3=False, f4=False):
     ret = 0x80 | (lights << 4) | (f4 << 3) | (f3 << 2) | (f2 << 1) | (f1)
     return [address, ret]

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #import gertbot as gb
 import dcc
-import time
 
 class controller(object):
     def __init__(self):
@@ -41,6 +40,13 @@ class controller(object):
 
 if __name__ == "__main__":
     from loco_loader import load_yaml_locos
+    from dcc_signals import *
+    import time
     c = controller()
     load_yaml_locos(c, "locos.yaml")
     print(str(c.get_loco_list()))
+    c.send(loco_spped_advanced(address=47, speed=56, emergency_stop=False, forward=True))
+    time.sleep(5)
+    c.send(loco_spped_advanced(address=47, speed=37, emergency_stop=False, forward=True))
+    time.sleep(5)
+    c.send(loco_spped_advanced(address=47, speed=0, emergency_stop=False, forward=True))

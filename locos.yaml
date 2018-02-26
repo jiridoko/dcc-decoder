@@ -5,12 +5,14 @@ locomotives:
                 img: "test1.jpg"
                 name: "Test Locomotive"
                 serial: "1234"
+                advanced_speed: False
                 functions: []
         - brejlovec:
                 id: 47
                 img: "brejlovec.png"
                 name: "Brejlovec"
                 serial: "754 023-0"
+                advanced_speed: True
                 functions:
                         - 
                                 name: "light"

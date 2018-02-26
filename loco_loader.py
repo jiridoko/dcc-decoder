@@ -11,8 +11,9 @@ def load_yaml_locos(control, filename):
                 loco_img = str(locos[loco]["img"])
                 loco_serial = str(locos[loco]["serial"])
                 loco_id = int(locos[loco]["id"])
+                loco_advanced = bool(locos[loco]["advanced_speed"])
                 loco_functions = locos[loco]["functions"]
-                new_loco = locomotive(str(loco), loco_id, control)
+                new_loco = locomotive(str(loco), loco_id, control, advanced_speed=loco_advanced)
                 new_loco.set_nice_name(loco_name)
                 new_loco.set_serial(loco_serial)
                 new_loco.set_img(loco_img)

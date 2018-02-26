@@ -24,7 +24,7 @@ class loco_function(object):
         return self.toggle
 
 class locomotive(object):
-    def __init__(self, name, ident, control):
+    def __init__(self, name, ident, control, advanced_speed=False):
         self.name = name
         self.ident = ident
         self.control = control
@@ -35,6 +35,9 @@ class locomotive(object):
         self.nice_name = ""
         self.serial = ""
         self.img = ""
+        self.advanced_speed = advanced_speed
+    def is_advanced_speed(self):
+        return self.advanced_speed
     def set_nice_name(self, name):
         self.nice_name = name
     def set_serial(self, serial):
@@ -76,15 +79,19 @@ class locomotive(object):
         self.emergency_stop = stop
         self.update_speed()
     def update_speed(self):
-        lights = self.get_function_value(0)
-        data = loco_speed(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward, lights=lights)
+        if self.advanced_speed:
+            data = loco_spped_advanced(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward)
+        else:
+            lights = self.get_function_value(0)
+            data = loco_speed(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward, lights=lights)
         self.control.send(data)
     def set_direction(self, forward=True):
         if forward != self.forward:
             self.forward = forward
             self.update_speed()
     def set_speed(self, speed=0):
-        if speed != self.speed and speed >= 0 and speed <= 14:
+        if speed != self.speed and speed >= 0 and \
+                ((not self.advanced_speed and speed <= 14) or (self.advanced_speed and speed <= 126)):
             self.speed = speed
             self.update_speed()
     def get_speed(self):
