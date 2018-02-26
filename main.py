@@ -58,11 +58,13 @@ def emergency():
 def button_state(loco_id):
     if loco_id == 0:
         return '{"functions":[]}'
+    loco = c.get_loco(loco_id)
     a = dict()
     a["functions"] = []
-    for f in c.get_loco(loco_id).get_functions():
+    for f in loco.get_functions():
         a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
-    a["forward"] = str(bool(c.get_loco(loco_id).is_forward()))
+    a["forward"] = str(bool(loco.is_forward()))
+    a["speed"] = str(loco.get_speed())
     return json.dumps(a)
 
 @app.route('/q', methods=["POST"])

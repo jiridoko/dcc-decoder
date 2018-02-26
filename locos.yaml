@@ -77,22 +77,22 @@ locomotives:
                                 id: 13
                         - 
                                 name: "shunting"
-                                label: 'f6'
-                                fa: False
+                                label: 'fas fa-tachometer-alt'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 6
                         - 
                                 name: "curve"
-                                label: 'f7'
-                                fa: False
+                                label: 'fas fa-cogs'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 7
                         - 
                                 name: "sanding"
-                                label: 'f8'
-                                fa: False
+                                label: 'fas fa-tint'
+                                fa: True
                                 toggle: True
                                 default: False
                                 id: 8

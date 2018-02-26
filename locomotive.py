@@ -47,6 +47,8 @@ class locomotive(object):
         return self.serial
     def get_img(self):
         return self.img
+    def get_id(self):
+        return self.ident
     def add_function(self, name, toggle, value, ident, label, fontawesome):
         new_func = loco_function(name, toggle=toggle, value=value, ident=ident, label=label, fontawesome=fontawesome)
         self.functions.append(new_func)
