@@ -1,0 +1,12 @@
+[Unit]
+Description=Model railway controller
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/root/dcc-decoder/
+ExecStart=/root/dcc-decoder/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

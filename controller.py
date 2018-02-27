@@ -1,11 +1,21 @@
 #!/usr/bin/env python3
-#import gertbot as gb
 import dcc
 
 class controller(object):
     def __init__(self):
         self.handle = dcc.dcc_init(-1)
         self.locos = dict()
+        self.points = []
+    def add_point(self, point):
+        self.points.append(point)
+    def get_points(self):
+        return self.points
+    def get_point_tuple(self):
+        return [(p.get_name(),\
+                p.get_left_url(),\
+                p.get_left_img(),\
+                p.get_right_url(),\
+                p.get_right_img()) for p in self.get_points()]
     def add_loco(self, loco):
         ident = loco.get_id()
         self.locos[ident] = loco

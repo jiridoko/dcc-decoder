@@ -8,6 +8,7 @@ from flask import redirect
 from flask import abort
 import json
 from loco_loader import load_yaml_locos
+from point_loader import load_yaml_points
 import controller
 from locomotive import locomotive
 import time
@@ -15,6 +16,7 @@ import sys
 
 c = controller.controller()
 load_yaml_locos(c, "locos.yaml")
+load_yaml_points(c, "points.yaml")
 
 app = Flask(__name__)
 
@@ -28,6 +30,7 @@ def index():
         pass
     #{% for action, label in function_list %}
     flist = []
+    plist = []
     loco_name = "No loco selected"
     loco_serial = "Select one from the menu"
     loco_img = "blank.png"
@@ -35,6 +38,7 @@ def index():
     try:
         loco = c.get_loco(loco_id)
         flist = loco.get_function_list()
+        plist = c.get_point_tuple()
         loco_name = loco.get_nice_name()
         loco_serial = loco.get_serial()
         loco_img = loco.get_img()
@@ -49,7 +53,8 @@ def index():
             loco_name=loco_name,\
             loco_serial=loco_serial,\
             loco_img=loco_img,\
-            max_speed=max_speed)
+            max_speed=max_speed,\
+            plist=plist)
 
 @app.route('/static/<path:path>')
 def static_files():

@@ -96,6 +96,12 @@
 	width: 100%
     }
 
+    .pure-img-narrow {
+	max-width: 90%;
+	height: auto;
+	display: block
+    }
+
 </style>
 
 
@@ -114,17 +120,26 @@
 
             <ul class="pure-menu-list">
 		{% for name, id in loco_list %}
-		<li class="pure-menu-item"><a href="/?loco={{ id }}" class="pure-menu-link">{{ name }}</a></li>
+			{% if (id == loco_id) %}
+				<li class="pure-menu-item pure-menu-selected"><a href="/?loco={{ id }}" class="pure-menu-link">{{ name }}</a></li>
+			{% else %}
+				<li class="pure-menu-item"><a href="/?loco={{ id }}" class="pure-menu-link">{{ name }}</a></li>
+			{% endif %}
 		{% endfor %}
 		<!--
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">About</a></li>
-
-                <li class="pure-menu-item menu-item-divided pure-menu-selected">
-                    <a href="#" class="pure-menu-link">Services</a>
-                </li>
-
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Contact</a></li>
+		<li class="pure-menu-item menu-item-divided"><div class="pure-menu-link">Turnouts</div></li>
 		-->
+		<!--
+		(p.get_name(), p.get_left_url(), p.get_left_img(), p.get_right_url(), p.get_right_img())
+		-->
+		{% for name, left_url, left_img, right_url, right_img in plist %}
+			<li class="pure-menu-item menu-item-divided">
+				<div class="pure-g">
+					<div class="pure-u-1-2"><img class="pure-img-narrow" src="/static/points_img/{{ left_img }}" onclick="(function() { jQuery.post('{{ left_url }}') })();"/></div>
+					<div class="pure-u-1-2"><img class="pure-img-narrow" src="/static/points_img/{{ right_img }}" onclick="(function() { jQuery.post('{{ right_url }}') })();"/></div>
+				</div>
+			</li>
+		{% endfor %}
             </ul>
         </div>
     </div>
@@ -223,6 +238,9 @@
 		'rotation':"clockwise",
 		'change': function(v) { setDialValue(Math.round(v)); }
 	});
+        //Opening links in the same window for iphone
+        //––––––––––––––––––––––––––––––––––––––––––––––––––
+        (function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")
 </script>
 
 </body>
