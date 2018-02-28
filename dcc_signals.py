@@ -13,7 +13,7 @@ def loco_speed(address=0, speed=0, emergency_stop=False, forward=True, lights=Fa
     else:
         return [address, ret]
 
-def loco_spped_advanced(address=0, speed=0, emergency_stop=False, forward=True):
+def loco_speed_advanced(address=0, speed=0, emergency_stop=False, forward=True):
     ret = 0x3F
     ret2= (forward << 7)
     if emergency_stop:
