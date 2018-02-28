@@ -14,10 +14,10 @@ def loco_speed(address=0, speed=0, emergency_stop=False, forward=True, lights=Fa
         return [address, ret]
 
 def loco_spped_advanced(address=0, speed=0, emergency_stop=False, forward=True):
-    ret = 0b00111111
+    ret = 0x3F
     ret2= (forward << 7)
     if emergency_stop:
-        ret2 = 0b00000001
+        ret2 = 0x01
         return [address, ret, ret2]
     if speed == 0:
         return [address, ret, ret2]
