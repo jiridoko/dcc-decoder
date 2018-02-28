@@ -80,7 +80,7 @@ class locomotive(object):
         self.update_speed()
     def update_speed(self):
         if self.advanced_speed:
-            data = loco_spped_advanced(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward)
+            data = loco_speed_advanced(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward)
         else:
             lights = self.get_function_value(0)
             data = loco_speed(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward, lights=lights)
