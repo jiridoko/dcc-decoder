@@ -76,6 +76,14 @@ def button_state(loco_id):
     a["speed"] = str(loco.get_speed())
     return json.dumps(a)
 
+@app.route('/cv', methods=["POST"])
+def cv():
+    loco=int(request.args['loco'])
+    cv=int(request.args['cv'])
+    value=int(request.args['value'])
+    c.get_loco(loco).set_cv(cv=cv, value=value)
+    return ('', 204)
+
 @app.route('/q', methods=["POST"])
 def query():
     loco=int(request.args['loco'])

@@ -78,6 +78,10 @@ class locomotive(object):
         self.speed = 0
         self.emergency_stop = stop
         self.update_speed()
+    def set_cv(self, cv=None, value=None):
+        if cv is not None and cv > 0 and cv <=1024 and value is not None and value > 0 and value <= 255:
+            data = loco_set_cv(address=self.ident, cv=cv, value=value)
+            self.control.send(data)
     def update_speed(self):
         if self.advanced_speed:
             data = loco_speed_advanced(address=self.ident, speed=self.speed, emergency_stop=self.emergency_stop, forward=self.forward)

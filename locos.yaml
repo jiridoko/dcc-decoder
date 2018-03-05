@@ -1,14 +1,7 @@
 ---
 locomotives:
-        - test1:
-                id: 48
-                img: "test1.jpg"
-                name: "Test Locomotive"
-                serial: "1234"
-                advanced_speed: False
-                functions: []
         - brejlovec:
-                id: 47
+                id: 75
                 img: "brejlovec.png"
                 name: "Brejlovec"
                 serial: "754 023-0"
@@ -107,8 +100,8 @@ locomotives:
                                 id: 14
 
         - brejlovec:
-                id: 48
-                img: "brejlovec.png"
+                id: 74
+                img: "bardotka.png"
                 name: "Bardotka"
                 serial: "749 042-8"
                 advanced_speed: True
@@ -128,54 +121,54 @@ locomotives:
                                 default: False
                                 id: 1
                         - 
-                                name: "f2"
-                                label: 'f2'
-                                fa: False
+                                name: "horn"
+                                label: 'fas fa-bullhorn'
+                                fa: True
                                 toggle: False
                                 default: False
                                 id: 2
                         - 
-                                name: "f3"
-                                label: 'f3'
-                                fa: False
+                                name: "short_whistle"
+                                label: 'far fa-bell'
+                                fa: True
                                 toggle: False
                                 default: False
-                                id: 3
+                                id: 12
                         - 
-                                name: "f4"
-                                label: 'f4'
-                                fa: False
-                                toggle: True
-                                default: False
-                                id: 4
-                        - 
-                                name: "f5"
-                                label: 'f5'
-                                fa: False
-                                toggle: True
-                                default: False
-                                id: 5
-                        - 
-                                name: "f6"
-                                label: 'f6'
-                                fa: False
-                                toggle: True
-                                default: False
-                                id: 6
-                        - 
-                                name: "f11"
-                                label: 'f11'
-                                fa: False
+                                name: "long_whistle"
+                                label: 'far fa-bell'
+                                fa: True
                                 toggle: False
                                 default: False
                                 id: 11
                         - 
-                                name: "f12"
-                                label: 'f12'
-                                fa: False
+                                name: "conductor"
+                                label: 'fas fa-train'
+                                fa: True
                                 toggle: False
                                 default: False
-                                id: 12
+                                id: 3
+                        - 
+                                name: "compressor"
+                                label: 'fas fa-cog'
+                                fa: True
+                                toggle: False
+                                default: False
+                                id: 4
+                        - 
+                                name: "sanding"
+                                label: 'fas fa-tint'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 5
+                        - 
+                                name: "shunting"
+                                label: 'fas fa-tachometer-alt'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 6
                         - 
                                 name: "mute"
                                 label: 'fas fa-volume-off'

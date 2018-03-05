@@ -51,7 +51,7 @@ def loco_functions_5(address=0, f21=False, f22=False, f23=False, f24=False, f25=
 
 def loco_set_cv(address=0, cv=1, value=3):
     real_cv = cv-1
-    ret1 = 0b11101100
+    ret1 = 0xEC
     if real_cv > 1024 or real_cv < 0 or value > 255 or value < 0:
         return [address]
     top2cv = real_cv >> 8
