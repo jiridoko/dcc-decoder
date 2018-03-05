@@ -106,3 +106,80 @@ locomotives:
                                 default: False
                                 id: 14
 
+        - brejlovec:
+                id: 48
+                img: "brejlovec.png"
+                name: "Bardotka"
+                serial: "749 042-8"
+                advanced_speed: True
+                functions:
+                        - 
+                                name: "light"
+                                label: 'far fa-lightbulb'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 0
+                        - 
+                                name: "sound"
+                                label: 'fas fa-music'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 1
+                        - 
+                                name: "f2"
+                                label: 'f2'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 2
+                        - 
+                                name: "f3"
+                                label: 'f3'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 3
+                        - 
+                                name: "f4"
+                                label: 'f4'
+                                fa: False
+                                toggle: True
+                                default: False
+                                id: 4
+                        - 
+                                name: "f5"
+                                label: 'f5'
+                                fa: False
+                                toggle: True
+                                default: False
+                                id: 5
+                        - 
+                                name: "f6"
+                                label: 'f6'
+                                fa: False
+                                toggle: True
+                                default: False
+                                id: 6
+                        - 
+                                name: "f11"
+                                label: 'f11'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 11
+                        - 
+                                name: "f12"
+                                label: 'f12'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 12
+                        - 
+                                name: "mute"
+                                label: 'fas fa-volume-off'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 14

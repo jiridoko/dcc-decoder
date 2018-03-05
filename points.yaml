@@ -38,7 +38,7 @@ points:
                 right_img: "6_2_grey.png"
         - point:
                 name: "Turnout 7"
-                left_url: "http://172.16.32.148/turnout/13/"
+                left_url: "http://172.16.32.148/turnout/12/"
                 left_img: "7_1_grey.png"
-                right_url: "http://172.16.32.148/turnout/12/"
+                right_url: "http://172.16.32.148/turnout/13/"
                 right_img: "7_2_grey.png"

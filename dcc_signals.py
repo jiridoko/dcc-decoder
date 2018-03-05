@@ -48,3 +48,17 @@ def loco_functions_5(address=0, f21=False, f22=False, f23=False, f24=False, f25=
     ret1 = 0xDF
     ret2 = (f28 << 7) | (f27 << 6) | (f26 << 5) | (f25 << 4) | (f24 << 3) | (f23 << 2) | (f22 << 1) | (f21)
     return [address, ret1, ret2]
+
+def loco_set_cv(address=0, cv=1, value=3):
+    real_cv = cv-1
+    ret1 = 0b11101100
+    if real_cv > 1024 or real_cv < 0 or value > 255 or value < 0:
+        return [address]
+    top2cv = real_cv >> 8
+    ret1 = ret1 | top2cv
+    ret2 = real_cv & 0xFF
+    ret3 = value
+    return [address, ret1, ret2, ret3]
+
+if __name__ == "__main__":
+    print(str(loco_set_cv(address=3, cv=1, value=48)))
