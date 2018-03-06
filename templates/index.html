@@ -13,6 +13,7 @@
     <title>DCC Controller</title>
    
     <script defer src="/static/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
+    <script src="/static/NoSleep.min.js"></script>
     <link rel="stylesheet" href="/static/pure/pure-min.css" integrity="sha384-" crossorigin="anonymous">
     
     
@@ -164,20 +165,11 @@
 		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
 		<div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; $('input.dial').trigger('change'); })();"><i class="far fa-hand-paper"></i></button></p></div>
 		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
+		<div class="pure-u-1-4"><form class="pure-form"><fieldset><button class="pure-button button-orange" type="button" onclick="toggleCV()">CV</button></fieldset></form></div>
+		<div class="pure-u-1-4"><form class="pure-form" id="cvForm1" style="display: none;"><fieldset><input id="cv_id" type="number" class="pure-input-1" placeholder="CV" /></fieldset></form></div>
+		<div class="pure-u-1-4"><form class="pure-form" id="cvForm2" style="display: none;"><fieldset><input id="cv_value" type="number" class="pure-input-1" placeholder="Value" /></fieldset></form></div>
+		<div class="pure-u-1-4"><form class="pure-form" id="cvForm3" style="display: none;"><fieldset><button id="cv_set" type="button" class="pure-button button-green" onclick="(function() { jQuery.post('/cv?loco={{ loco_id }}&cv='+document.getElementById('cv_id').value+'&value='+document.getElementById('cv_value').value); })();">Set</button></fieldset></form></div>
 		{% endif %}
-		<!--<div class="pure-u-1" id="cvForm" style="display: none;">-->
-			<form class="pure-form" id="cvForm" style="display: none;">
-				<fieldset>
-					<!--<legend>CV manipulation</legend>-->
-					<input id="cv_id" type="number" class="pure-input-1-3" placeholder="CV" />
-					<input id="cv_value" type="number" class="pure-input-1-3" placeholder="Value" />
-					<div class="pure-u-1-3">
-						<button id="cv_set" type="button" class="pure-button button-green" onclick="(function() { jQuery.post('/cv?loco={{ loco_id }}&cv='+document.getElementById('cv_id').value+'&value='+document.getElementById('cv_value').value); })();">Set</button>
-					</div>
-				</fieldset>
-			</form>
-			<!--</div>-->
-		<div class="pure-u-1"><button class="pure-button button-orange" onclick="toggleCV()">CV</button></div>
             </div>
         </div>
     </div>
@@ -191,16 +183,20 @@
 <script src="/static/jquery.min.js"></script>
 <script src="/static/jquery.knob.js"></script>
 <script>
-	this.lastSentDialValue = 0
-	this.currentDialValue = 0
-	this.max_speed = {{ max_speed }}
+	this.lastSentDialValue = 0;
+	this.currentDialValue = 0;
+	this.max_speed = {{ max_speed }};
+	var noSleep = new NoSleep();
 
 	function toggleCV() {
-		var form = document.getElementById("cvForm");
-		if (form.style.display === "none") {
-			form.style.display = "block";
-		} else {
-			form.style.display = "none";
+		var a = ["cvForm1", "cvForm2", "cvForm3"];
+		for (var i=0; i<a.length; i++) {
+			var form = document.getElementById(a[i]);
+			if (form.style.display === "none") {
+				form.style.display = "block";
+			} else {
+				form.style.display = "none";
+			}
 		}
 	}
 
@@ -241,6 +237,7 @@
 	
 
 	function ajaxupdate() {
+		noSleep.enable();
 		jQuery.post('/q?loco={{ loco_id }}', function(data) {
 			updateButtons(data);
 		});
