@@ -149,7 +149,7 @@
     <div id="main">
         <div class="content">
 	    <div class="pure-g">
-		<div class="pure-u-1"><p><button class="pure-button button-stop" id="emergency" onclick="(function() { jQuery.post('/q?action=emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		<div class="pure-u-1"><p><button class="pure-button button-stop" id="emergency" onclick="(function() { jQuery.post('/emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
 		<div class="pure-u-1-2"><p>{{ loco_name }}<br/>{{ loco_serial }}<br/>DCC ID: {{ loco_id }}</p></div>
 		<div class="pure-u-1-2"><p><img class="pure-img" src="/static/loco_img/{{ loco_img }}"/></p></div>
 		{% for action, label, fontawesome in function_list %}

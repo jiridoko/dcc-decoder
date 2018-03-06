@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import dcc
+from dcc_signals import *
 
 class controller(object):
     def __init__(self):
@@ -41,6 +42,14 @@ class controller(object):
             for i in range(0, 5-length):
                 arr.append(0)
         return [length]+arr
+    def emergency_stop(self, stop=True):
+        data = loco_speed(emergency_stop=stop)
+        self.send(data)
+        data = loco_speed_advanced(emergency_stop=stop)
+        self.send(data)
+        for i in self.locos.keys():
+            loco = self.locos[i]
+            loco.set_speed(speed=0)
     def send(self, data):
         d = self._format_data(data)
         if d is not None:
@@ -50,7 +59,6 @@ class controller(object):
 
 if __name__ == "__main__":
     from loco_loader import load_yaml_locos
-    from dcc_signals import *
     import time
     c = controller()
     load_yaml_locos(c, "locos.yaml")

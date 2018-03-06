@@ -36,9 +36,9 @@ def index():
     loco_img = "blank.png"
     max_speed = 14
     try:
+        plist = c.get_point_tuple()
         loco = c.get_loco(loco_id)
         flist = loco.get_function_list()
-        plist = c.get_point_tuple()
         loco_name = loco.get_nice_name()
         loco_serial = loco.get_serial()
         loco_img = loco.get_img()
@@ -62,6 +62,7 @@ def static_files():
 
 @app.route('/emergency', methods=["POST"])
 def emergency():
+    c.emergency_stop()
     return ('', 204)
 
 def button_state(loco_id):
@@ -70,10 +71,11 @@ def button_state(loco_id):
     loco = c.get_loco(loco_id)
     a = dict()
     a["functions"] = []
-    for f in loco.get_functions():
-        a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
-    a["forward"] = str(bool(loco.is_forward()))
-    a["speed"] = str(loco.get_speed())
+    if loco is not None:
+        for f in loco.get_functions():
+            a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
+        a["forward"] = str(bool(loco.is_forward()))
+        a["speed"] = str(loco.get_speed())
     return json.dumps(a)
 
 @app.route('/cv', methods=["POST"])
