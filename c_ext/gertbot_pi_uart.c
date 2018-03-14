@@ -66,11 +66,13 @@ int write_uart(int handle, unsigned char *data,int bytes)
   return 1;
 }
 
-int  read_uart(int handle, unsigned char *data,int len)
+int  read_uart(int handle, unsigned char *data, int len)
 { 
+  #ifdef TEST
   printf("calling read_uart\n");
+  #endif
   int rec,rep,tot;
-  rep = len;  // use lenght as repeat 
+  rep = len;  // use length as repeat 
   tot = 0;
   while (len>0 && rep)
   {

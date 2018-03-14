@@ -28,6 +28,18 @@ void set_all_channels_to_dcc(int handle) {
 	}
 }
 
+void stop_all_channels(int handle) {
+	unsigned char message[5];
+	for (unsigned char channel=0; channel<4; ++channel) {
+		message[0] = CMD_START_VAL;
+		message[1] = CMD_OPMODE;
+		message[2] = channel;
+		message[3] = MOT_MODE_OFF;
+		message[4] = CMD_STOP_VAL;
+		write_uart(handle, message, 5);
+	}
+}
+
 void dcc_config(int handle, unsigned char preamble, unsigned char repeat, unsigned char flags) {
 	unsigned char message[10];
 	message[0] = CMD_START_VAL;
@@ -41,7 +53,7 @@ void dcc_config(int handle, unsigned char preamble, unsigned char repeat, unsign
 	write_uart(handle, message,8);
 }
 
-int send_command(int handle, unsigned char count, unsigned char b1, unsigned char b2, unsigned char b3, unsigned char b4, unsigned char b5) {
+int send_dcc_command(int handle, unsigned char count, unsigned char b1, unsigned char b2, unsigned char b3, unsigned char b4, unsigned char b5) {
 	unsigned char message[10];
 	message[0] = CMD_START_VAL;
 	message[1] = CMD_DCC_MESS;
@@ -54,6 +66,22 @@ int send_command(int handle, unsigned char count, unsigned char b1, unsigned cha
 	message[8] = b5;
 	message[9] = CMD_STOP_VAL;
 	return write_uart(handle, message,10);
+}
+
+unsigned char * query_errors(int handle) {
+	unsigned char message[7];
+	message[0] = CMD_START_VAL;
+	message[1] = CMD_GET_ERROR;
+	message[2] = 0;
+	message[3] = CMD_STOP_VAL;
+	message[4] = CMD_STOP_VAL;
+	message[5] = CMD_STOP_VAL;
+	message[6] = CMD_STOP_VAL;
+	unsigned char * ret = malloc(sizeof(unsigned char) * 4);
+	//int n = write_uart(handle, message, 7);
+	write_uart(handle, message, 7);
+	read_uart(handle, ret, 4);
+	return ret;
 }
 
 int init(int h) {
@@ -90,7 +118,7 @@ static PyObject* dcc_send(PyObject* self, PyObject* args) {
 		return NULL;
 
 	int ret = -1;
-	ret = send_command(handle, count, b1, b2, b3, b4, b5);
+	ret = send_dcc_command(handle, count, b1, b2, b3, b4, b5);
 
 	//Py_RETURN_NONE;
 	return Py_BuildValue("i", ret);
@@ -118,8 +146,17 @@ PyMODINIT_FUNC PyInit_dcc(void) {
 int main() {
 	int handle = init(-1);
 
-	send_command(handle, 2, 47, 130, 0, 0, 0);
-	send_command(handle, 2, 47, 128, 0, 0, 0);
+	stop_all_channels(handle);
+	set_all_channels_to_dcc(handle);
+	dcc_config(handle, 16, 8, 0);
+
+	unsigned char * err = query_errors(handle);
+	for (int i=0; i<4; i++)
+		printf("Err[%d]=%d\n", i, (int) err[i]);
+	if (err != NULL)
+		free(err);
+	//send_dcc_command(handle, 2, 47, 130, 0, 0, 0);
+	//send_dcc_command(handle, 2, 47, 128, 0, 0, 0);
 
 	close_uart(handle);
 
