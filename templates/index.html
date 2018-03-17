@@ -143,6 +143,7 @@
 				</div>
 			</li>
 		{% endfor %}
+		    <li class="pure-menu-item menu-item-divided"><button class="pure-button button-off" id="rails-button" onclick="(function() { jQuery.post('/rails?loco={{ loco_id }}', function(data) { updateButtons(data); }); })();">Rails</button></li>
             </ul>
         </div>
     </div>
@@ -230,8 +231,15 @@
 			document.getElementById("forward").className = "pure-button button-direction-off";
 			document.getElementById("backward").className = "pure-button button-direction-on";
 		}
-		document.getElementById('throttleDial').value = json.speed;
-		$('input.dial').trigger('change');
+		if (json.rails == 'True') {
+			document.getElementById("rails-button").className = "pure-button button-on";
+		} else if (json.rails == 'False') {
+			document.getElementById("rails-button").className = "pure-button button-off";
+		}
+		if (json.speed != null) {
+			document.getElementById('throttleDial').value = json.speed;
+			$('input.dial').trigger('change');
+		}
 	}
 
 	

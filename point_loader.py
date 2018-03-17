@@ -13,6 +13,9 @@ def load_yaml_points(control, filename):
             right_img = p["point"]["right_img"]
             new_point = point.point(name, left_url, left_img, right_url, right_img)
             control.add_point(new_point)
+        uri_on = struct['rails']['uri_on']
+        uri_off = struct['rails']['uri_off']
+        control.add_rail_uris(uri_on, uri_off)
 
 if __name__ == "__main__":
     import controller

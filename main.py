@@ -76,6 +76,7 @@ def button_state(loco_id):
             a["functions"].append({ "f_id": str(f.get_id()), "f_state": str(f.get_value())})
         a["forward"] = str(bool(loco.is_forward()))
         a["speed"] = str(loco.get_speed())
+        a["rails"] = str(c.get_rails())
     return json.dumps(a)
 
 @app.route('/cv', methods=["POST"])
@@ -95,6 +96,16 @@ def query():
             return button_state(loco)
         action=int(request.args['action'])
         c.get_loco(loco).toggle_function(action)
+    return button_state(loco)
+
+@app.route('/rails', methods=["POST"])
+def rails():
+    loco=0
+    try:
+        loco=int(request.args['loco'])
+    except:
+        pass
+    c.switch_rails()
     return button_state(loco)
 
 @app.route('/direction', methods=["POST"])

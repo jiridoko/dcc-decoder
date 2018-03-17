@@ -42,3 +42,6 @@ points:
                 left_img: "7_1_grey.png"
                 right_url: "http://172.16.32.148/turnout/13/"
                 right_img: "7_2_grey.png"
+rails:
+        uri_on: "http://172.16.32.148/rails/1/"
+        uri_off: "http://172.16.32.148/rails/0/"

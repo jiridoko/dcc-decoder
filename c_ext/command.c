@@ -44,7 +44,7 @@ void dcc_config(int handle, unsigned char preamble, unsigned char repeat, unsign
 	unsigned char message[10];
 	message[0] = CMD_START_VAL;
 	message[1] = CMD_DCC_CONFIG;
-	message[2] = 0;
+	message[2] = 2;
 	message[3] = repeat;
 	message[4] = preamble;
 	message[5] = 0x00;
@@ -57,7 +57,7 @@ int send_dcc_command(int handle, unsigned char count, unsigned char b1, unsigned
 	unsigned char message[10];
 	message[0] = CMD_START_VAL;
 	message[1] = CMD_DCC_MESS;
-	message[2] = 0;
+	message[2] = 2;
 	message[3] = 0xF0 | count; //2 byte size
 	message[4] = b1;
 	message[5] = b2;
@@ -72,7 +72,7 @@ unsigned char * query_errors(int handle) {
 	unsigned char message[7];
 	message[0] = CMD_START_VAL;
 	message[1] = CMD_GET_ERROR;
-	message[2] = 0;
+	message[2] = 2;
 	message[3] = CMD_STOP_VAL;
 	message[4] = CMD_STOP_VAL;
 	message[5] = CMD_STOP_VAL;

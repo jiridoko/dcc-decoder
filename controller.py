@@ -1,12 +1,34 @@
 #!/usr/bin/env python3
 import dcc
 from dcc_signals import *
+from urllib import request, parse
 
 class controller(object):
     def __init__(self):
         self.handle = dcc.dcc_init(-1)
         self.locos = dict()
         self.points = []
+        self.rail_uri_on = None
+        self.rail_uri_off = None
+        self.rails = False
+    def add_rail_uris(self, uri_on, uri_off):
+        self.rail_uri_on = uri_on
+        self.rail_uri_off = uri_off
+        self.set_rails()
+    def switch_rails(self):
+        self.rails = not self.rails
+        self.set_rails(on=self.rails)
+    def get_rails(self):
+        return self.rails
+    def set_rails(self, on=False):
+        url = None
+        if on:
+            url = self.rail_uri_on
+        else:
+            url = self.rail_uri_off
+        if url is not None:
+            req = request.Request(url, data=parse.urlencode({}).encode())
+            request.urlopen(req)
     def add_point(self, point):
         self.points.append(point)
     def get_points(self):
