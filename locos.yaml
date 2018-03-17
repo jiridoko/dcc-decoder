@@ -34,7 +34,7 @@ locomotives:
                                 fa: True
                                 toggle: False
                                 default: False
-                                id: 5
+                                id: 18
                         - 
                                 name: "coupling"
                                 label: 'fab fa-steam-symbol'
@@ -48,7 +48,7 @@ locomotives:
                                 fa: True
                                 toggle: False
                                 default: False
-                                id: 2
+                                id: 19
                         - 
                                 name: "short_horn"
                                 label: 'fas fa-bullhorn'
@@ -98,8 +98,22 @@ locomotives:
                                 toggle: True
                                 default: False
                                 id: 14
+                        - 
+                                name: "f2"
+                                label: 'f2'
+                                fa: False
+                                toggle: True
+                                default: False
+                                id: 2
+                        - 
+                                name: "f5"
+                                label: 'f5'
+                                fa: False
+                                toggle: True
+                                default: False
+                                id: 5
 
-        - brejlovec:
+        - bardotka:
                 id: 74
                 img: "bardotka.png"
                 name: "Bardotka"
@@ -176,3 +190,87 @@ locomotives:
                                 toggle: True
                                 default: False
                                 id: 14
+        - zimo_sound:
+                id: 4
+                img: "blank.png"
+                name: "Zimo decoder"
+                serial: "sound programming"
+                advanced_speed: True
+                functions:
+                        - 
+                                name: "play"
+                                label: 'play'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 0
+                        - 
+                                name: "prev sample"
+                                label: 'prev sample'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 1
+                        - 
+                                name: "next sample"
+                                label: 'next sample'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 2
+                        - 
+                                name: "clear end"
+                                label: 'clear end'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 3
+                        - 
+                                name: "prev group"
+                                label: 'prev group'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 4
+                        - 
+                                name: "next group"
+                                label: 'next group'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 5
+                        - 
+                                name: "loop"
+                                label: 'loop'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 6
+                        - 
+                                name: "short"
+                                label: 'short'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 7
+                        - 
+                                name: "store end"
+                                label: 'store end'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 8
+                        - 
+                                name: "f5"
+                                label: 'f5'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 5
+                        - 
+                                name: "f18"
+                                label: 'f18'
+                                fa: False
+                                toggle: False
+                                default: False
+                                id: 18
