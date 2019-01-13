@@ -190,7 +190,22 @@ locomotives:
                                 toggle: True
                                 default: False
                                 id: 14
-        - zimo_sound:
+        - CD_2_class:
+                id: 51
+                img: "blank.png"
+                name: "CD 2. trida"
+                serial: "51 54 20-70 520-1"
+                advanced_speed: False
+                speed_control: False
+                functions:
+                        - 
+                                name: "light"
+                                label: 'far fa-lightbulb'
+                                fa: True
+                                toggle: True
+                                default: False
+                                id: 1
+        - ZIMO_decoder:
                 id: 4
                 img: "blank.png"
                 name: "Zimo decoder"

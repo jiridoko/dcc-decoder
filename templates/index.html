@@ -162,10 +162,14 @@
 	            {% endif %}
 		{% endfor %}
 		{% if loco_id != 0 %}
-		<div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
-		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
-		<div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; $('input.dial').trigger('change'); })();"><i class="far fa-hand-paper"></i></button></p></div>
-		<div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
+		    {% if speed_control %}
+		        <div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
+		        <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
+		        <div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; $('input.dial').trigger('change'); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		        <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
+		    {% else %}
+		        <div class="pure-u-1">&nbsp;</div>
+		    {% endif %}
 		<div class="pure-u-1-4"><form class="pure-form"><fieldset><button class="pure-button button-orange" type="button" onclick="toggleCV()">CV</button></fieldset></form></div>
 		<div class="pure-u-1-4"><form class="pure-form" id="cvForm1" style="display: none;"><fieldset><input id="cv_id" type="number" class="pure-input-1" placeholder="CV" /></fieldset></form></div>
 		<div class="pure-u-1-4"><form class="pure-form" id="cvForm2" style="display: none;"><fieldset><input id="cv_value" type="number" class="pure-input-1" placeholder="Value" /></fieldset></form></div>
@@ -253,8 +257,10 @@
 
 	window.onload = ajaxupdate;
 	
-	window.setInterval(sendDialValue, 100);
 	window.setInterval(ajaxupdate, 1000);
+
+{% if speed_control %}
+	window.setInterval(sendDialValue, 100);
 	
 	$(".dial").knob({
 		'min':0,
@@ -267,6 +273,7 @@
 		'rotation':"clockwise",
 		'change': function(v) { setDialValue(Math.round(v)); }
 	});
+{% endif %}
         //Opening links in the same window for iphone
         //––––––––––––––––––––––––––––––––––––––––––––––––––
         (function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")

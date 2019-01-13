@@ -35,6 +35,7 @@ def index():
     loco_serial = "Select one from the menu"
     loco_img = "blank.png"
     max_speed = 14
+    speed_control = True
     try:
         plist = c.get_point_tuple()
         loco = c.get_loco(loco_id)
@@ -42,6 +43,7 @@ def index():
         loco_name = loco.get_nice_name()
         loco_serial = loco.get_serial()
         loco_img = loco.get_img()
+        speed_control = loco.get_speed_control()
         if loco.is_advanced_speed():
             max_speed = 126
     except:
@@ -54,6 +56,7 @@ def index():
             loco_serial=loco_serial,\
             loco_img=loco_img,\
             max_speed=max_speed,\
+            speed_control=speed_control,\
             plist=plist)
 
 @app.route('/static/<path:path>')

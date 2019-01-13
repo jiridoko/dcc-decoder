@@ -30,6 +30,7 @@ class locomotive(object):
         self.control = control
         self.functions = []
         self.speed = 0
+        self.speed_control = True
         self.forward = True
         self.emergency_stop = False
         self.nice_name = ""
@@ -40,6 +41,8 @@ class locomotive(object):
         return self.advanced_speed
     def set_nice_name(self, name):
         self.nice_name = name
+    def set_speed_control(self, speed_control):
+        self.speed_control = speed_control
     def set_serial(self, serial):
         self.serial = serial
     def set_img(self, img):
@@ -48,6 +51,8 @@ class locomotive(object):
         return self.nice_name
     def get_serial(self):
         return self.serial
+    def get_speed_control(self):
+        return self.speed_control
     def get_img(self):
         return self.img
     def get_id(self):

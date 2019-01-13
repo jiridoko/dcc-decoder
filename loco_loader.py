@@ -13,10 +13,14 @@ def load_yaml_locos(control, filename):
                 loco_id = int(locos[loco]["id"])
                 loco_advanced = bool(locos[loco]["advanced_speed"])
                 loco_functions = locos[loco]["functions"]
+                speed_control = True
+                if "speed_control" in locos[loco].keys():
+                    speed_control = bool(locos[loco]["speed_control"])
                 new_loco = locomotive(str(loco), loco_id, control, advanced_speed=loco_advanced)
                 new_loco.set_nice_name(loco_name)
                 new_loco.set_serial(loco_serial)
                 new_loco.set_img(loco_img)
+                new_loco.set_speed_control(speed_control)
                 #print(loco_name+" - "+loco_img+" - "+loco_serial+" - "+str(loco_id))
                 for function in loco_functions:
                     name = str(function["name"])

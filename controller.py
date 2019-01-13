@@ -8,12 +8,16 @@ class controller(object):
         self.handle = dcc.dcc_init(-1)
         self.locos = dict()
         self.points = []
-        self.rail_uri_on = None
-        self.rail_uri_off = None
+        self.rail_uri_on_1 = None
+        self.rail_uri_on_2 = None
+        self.rail_uri_off_1 = None
+        self.rail_uri_off_2 = None
         self.rails = False
-    def add_rail_uris(self, uri_on, uri_off):
-        self.rail_uri_on = uri_on
-        self.rail_uri_off = uri_off
+    def add_rail_uris(self, uri_on_1, uri_on_2, uri_off_1, uri_off_2):
+        self.rail_uri_on_1 = uri_on_1
+        self.rail_uri_on_2 = uri_on_2
+        self.rail_uri_off_1 = uri_off_1
+        self.rail_uri_off_2 = uri_off_2
         self.set_rails()
     def switch_rails(self):
         self.rails = not self.rails
@@ -23,12 +27,14 @@ class controller(object):
     def set_rails(self, on=False):
         url = None
         if on:
-            url = self.rail_uri_on
+            url = [self.rail_uri_on_1, self.rail_uri_on_2]
         else:
-            url = self.rail_uri_off
+            url = [self.rail_uri_off_1, self.rail_uri_off_2]
         if url is not None:
-            req = request.Request(url, data=parse.urlencode({}).encode())
-            request.urlopen(req)
+            for one_uri in url:
+                print(one_uri)
+                req = request.Request(one_uri, data=parse.urlencode({}).encode())
+                request.urlopen(req)
     def add_point(self, point):
         self.points.append(point)
     def get_points(self):

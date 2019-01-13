@@ -1,6 +1,6 @@
 [Unit]
 Description=Model railway controller
-After=network.target
+After=network.target switch-board.service
 
 [Service]
 Type=simple
