@@ -29,6 +29,27 @@
 
 <style scoped>
 
+    html, body {
+        position: fixed;
+    }
+
+    html, body {
+        position: relative;
+        overflow: hidden;
+    }
+
+    body {
+        position: fixed;
+        overflow: hidden;
+    }
+
+    body {
+        position: fixed;
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+    }
+
     .button-success,
     .button-error,
     .button-warning,
@@ -89,6 +110,7 @@
 	width: 70%;
     }
 
+    .button-init,
     .button-direction-off {
         background: rgb(96, 212, 122); /* this is a light green */
 	width: 70%;
@@ -150,31 +172,36 @@
 
     <div id="main">
         <div class="content">
-	    <div class="pure-g">
-		<div class="pure-u-1"><p><button class="pure-button button-stop" id="emergency" onclick="(function() { jQuery.post('/emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
-		<div class="pure-u-1-2"><p>{{ loco_name }}<br/>{{ loco_serial }}<br/>DCC ID: {{ loco_id }}</p></div>
-		<div class="pure-u-1-2"><p><img class="pure-img" src="/static/loco_img/{{ loco_img }}"/></p></div>
-		{% for action, label, fontawesome in function_list %}
-		    {% if fontawesome %}
-		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();"><i class="{{ label }}"></i></button></p></div>
-		    {% else %}
-		    <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();">{{ label }}</button></p></div>
-	            {% endif %}
-		{% endfor %}
-		{% if loco_id != 0 %}
-		    {% if speed_control %}
-		        <div class="pure-u-1"><input type="text" class="dial" value="0" id="throttleDial"></div>
-		        <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
-		        <div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; $('input.dial').trigger('change'); })();"><i class="far fa-hand-paper"></i></button></p></div>
-		        <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
-		    {% else %}
-		        <div class="pure-u-1">&nbsp;</div>
+	    <div class="pure-g" id="innerLoco">
+		    <div class="pure-u-1"><p><button class="pure-button button-stop" id="emergency" onclick="(function() { jQuery.post('/emergency', function(data) { updateButtons(data); }); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		    <div class="pure-u-1-2"><p>{{ loco_name }}<br/>{{ loco_serial }}<br/>DCC ID: {{ loco_id }}</p></div>
+		    <div class="pure-u-1-2"><p><img class="pure-img" src="/static/loco_img/{{ loco_img }}" onclick="NoSleepEvent();"/></p></div>
+		    <hideme class="pure-u-1" style="text-align: center;">
+		    <div class="pure-u-1"><p><button class="pure-button button-init" onclick="InitLoco();">Start Control</button></p></div>
+		    </hideme>
+		    <hideme style="display: none;">
+		    {% for action, label, fontawesome in function_list %}
+		        {% if fontawesome %}
+		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();"><i class="{{ label }}"></i></button></p></div>
+		        {% else %}
+		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();">{{ label }}</button></p></div>
+	                {% endif %}
+		    {% endfor %}
+		    {% if loco_id != 0 %}
+		        {% if speed_control %}
+		            <div class="pure-u-1" style="text-align: center;"><input type="text" class="dial" value="0" id="throttleDial" style="text-align: center;"></div>
+		            <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="backward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-left"></i></button></p></div>
+		            <div class="pure-u-1-3"><p><button class="pure-button button-stop" id="stop" onclick="(function() { jQuery.post('/slider?loco={{ loco_id }}&value=0', function(data) { updateButtons(data); }); document.getElementById('throttleDial').value = 0; $('input.dial').trigger('change'); })();"><i class="far fa-hand-paper"></i></button></p></div>
+		            <div class="pure-u-1-3"><p><button class="pure-button button-direction-off" id="forward" onclick="(function() { jQuery.post('/direction?loco={{ loco_id }}&value=1', function(data) { updateButtons(data); }); })();"><i class="fas fa-chevron-right"></i></button></p></div>
+		        {% else %}
+		            <div class="pure-u-1">&nbsp;</div>
+		        {% endif %}
+		    <div class="pure-u-1-4"><form class="pure-form"><fieldset><button class="pure-button button-orange" type="button" onclick="toggleCV()">CV</button></fieldset></form></div>
+		    <div class="pure-u-1-4"><form class="pure-form" id="cvForm1" style="display: none;"><fieldset><input id="cv_id" type="number" class="pure-input-1" placeholder="CV" /></fieldset></form></div>
+		    <div class="pure-u-1-4"><form class="pure-form" id="cvForm2" style="display: none;"><fieldset><input id="cv_value" type="number" class="pure-input-1" placeholder="Value" /></fieldset></form></div>
+		    <div class="pure-u-1-4"><form class="pure-form" id="cvForm3" style="display: none;"><fieldset><button id="cv_set" type="button" class="pure-button button-green" onclick="(function() { jQuery.post('/cv?loco={{ loco_id }}&cv='+document.getElementById('cv_id').value+'&value='+document.getElementById('cv_value').value); })();">Set</button></fieldset></form></div>
 		    {% endif %}
-		<div class="pure-u-1-4"><form class="pure-form"><fieldset><button class="pure-button button-orange" type="button" onclick="toggleCV()">CV</button></fieldset></form></div>
-		<div class="pure-u-1-4"><form class="pure-form" id="cvForm1" style="display: none;"><fieldset><input id="cv_id" type="number" class="pure-input-1" placeholder="CV" /></fieldset></form></div>
-		<div class="pure-u-1-4"><form class="pure-form" id="cvForm2" style="display: none;"><fieldset><input id="cv_value" type="number" class="pure-input-1" placeholder="Value" /></fieldset></form></div>
-		<div class="pure-u-1-4"><form class="pure-form" id="cvForm3" style="display: none;"><fieldset><button id="cv_set" type="button" class="pure-button button-green" onclick="(function() { jQuery.post('/cv?loco={{ loco_id }}&cv='+document.getElementById('cv_id').value+'&value='+document.getElementById('cv_value').value); })();">Set</button></fieldset></form></div>
-		{% endif %}
+		    </hideme>
             </div>
         </div>
     </div>
@@ -192,6 +219,23 @@
 	this.currentDialValue = 0;
 	this.max_speed = {{ max_speed }};
 	var noSleep = new NoSleep();
+
+        function NoSleepEvent() {
+		noSleep.enable();
+		console.log("nosleep");
+	}
+
+        function InitLoco() {
+		NoSleepEvent();
+        	var x = document.getElementsByTagName("hideme");
+  		for(var i = 0, size = x.length; i < size ; i++) {
+    			if (x[i].style.display === "none") {
+      				x[i].style.display = "block";
+    			} else {
+      				x[i].style.display = "none";
+    			}
+  		}
+	}
 
 	function toggleCV() {
 		var a = ["cvForm1", "cvForm2", "cvForm3"];
@@ -249,14 +293,25 @@
 	
 
 	function ajaxupdate() {
-		noSleep.enable();
 		jQuery.post('/q?loco={{ loco_id }}', function(data) {
 			updateButtons(data);
 		});
 	}
 
 	window.onload = ajaxupdate;
-	
+
+        function AllowZoom(flag) {
+                 if (flag == true) {
+                         $('head meta[name=viewport]').remove();
+                         $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10.0, minimum-scale=1, user-scalable=1" />');
+                 } else {
+                         $('head meta[name=viewport]').remove();
+                         $('head').prepend('<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />');              
+                 }
+        }
+
+        AllowZoom(false);
+
 	window.setInterval(ajaxupdate, 1000);
 
 {% if speed_control %}
@@ -265,7 +320,8 @@
 	$(".dial").knob({
 		'min':0,
 		'max':this.max_speed,
-		'width':"90%",
+		'width':"100%",
+		'data-width':"100",
 		'width':255,
 		'fgColor':"#66CC66",
 		'angleOffset':-125,
