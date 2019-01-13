@@ -192,7 +192,7 @@ locomotives:
                                 id: 14
         - CD_2_class:
                 id: 51
-                img: "blank.png"
+                img: "cd_2_trida.png"
                 name: "CD 2. trida"
                 serial: "51 54 20-70 520-1"
                 advanced_speed: False
