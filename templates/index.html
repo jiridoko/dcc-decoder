@@ -179,7 +179,7 @@
 		    <hideme class="pure-u-1" style="text-align: center;">
 		    <div class="pure-u-1"><p><button class="pure-button button-init" onclick="InitLoco();">Start Control</button></p></div>
 		    </hideme>
-		    <hideme style="display: none;">
+		    <hideme style="text-align:center; display: none; width: 100%">
 		    {% for action, label, fontawesome in function_list %}
 		        {% if fontawesome %}
 		        <div class="pure-u-1-5"><p><button class="pure-button button-off" id="function-{{ action }}" onclick="(function() { jQuery.post('/q?loco={{ loco_id }}&action={{ action }}', function(data) { updateButtons(data); }); })();"><i class="{{ label }}"></i></button></p></div>
